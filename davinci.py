@@ -1,10 +1,11 @@
 from fractions import Fraction
+from math import ceil
 
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 from PIL.Image import Image as PILImage
 from PIL.ImageDraw import ImageDraw as PILDraw
 
-from exif import get_exif, ExifDict
+from exif import ExifDict, get_exif
 
 
 class Davinci:
@@ -85,7 +86,7 @@ class Davinci:
     def __add_camera_params(self) -> None:
         # capture param, on bottom left corner row 2
         iso: str = "ISO" + str(self.__exif["EXIF:ISO"])
-        aperture: str = "f/" + str(self.__exif["EXIF:ApertureValue"])
+        aperture: str = "f/" + str(ceil(float(self.__exif["EXIF:ApertureValue"])))
         exposure_time: str = (
             str(Fraction(float(self.__exif["EXIF:ExposureTime"])).limit_denominator())
             + "s"
