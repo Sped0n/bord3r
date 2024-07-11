@@ -2,7 +2,7 @@ import os
 from argparse import ArgumentParser
 
 from PIL import Image
-from tqdm.contrib.concurrent import process_map
+from tqdm.contrib.concurrent import process_map  # pyright: ignore[reportUnknownVariableType]
 
 from davinci import Davinci
 from scheduler import load_jobs
@@ -10,14 +10,14 @@ from scheduler import load_jobs
 
 def parse_args():
     parser = ArgumentParser()
-    parser.add_argument("-d", "--dir", type=str, help="Path of dir")
-    parser.add_argument(
+    _ = parser.add_argument("-d", "--dir", type=str, help="Path of dir")
+    _ = parser.add_argument(
         "-l", "--location", type=str, required=False, help="Watermark geo location"
     )
-    parser.add_argument(
+    _ = parser.add_argument(
         "-w", "--workers", type=int, default=2, required=False, help="Number of workers"
     )
-    args = parser.parse_args()
+    _ = args = parser.parse_args()
     return args
 
 
@@ -53,8 +53,9 @@ if __name__ == "__main__":
     # argparse
     args = parse_args()
     # intialize saver
-    s = saver(args.location, args.dir)
+    s = saver(args.location, args.dir)  # pyright: ignore[reportAny]
     # load jobs(tasks)
-    jobs = load_jobs(args.dir)
+    jobs = load_jobs(args.dir)  # pyright: ignore[reportAny]
+
     # muultiprocessing with tqdm
-    r = process_map(s.run, jobs, max_workers=args.workers)
+    r = process_map(s.run, jobs, max_workers=args.workers)  # pyright: ignore[reportAny, reportUnknownVariableType]
