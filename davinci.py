@@ -56,21 +56,21 @@ class Davinci:
         text: str = str(self.__exif["EXIF:CreateDate"])
         x: int = int(self.__hsl - self.__original_width / 2)
         y: int = int(self.__hsl - self.__original_height / 2 - 0.018 * self.__hsl)
-        self.__draw.text((x, y), text, anchor="lb", font=self.__font, fill="black")
+        self.__draw.text((x, y), text, anchor="lb", font=self.__font, fill="black")  # pyright: ignore[reportUnknownMemberType]
 
     def __add_location(self) -> None:
         # location, on top right corner
         text: str = self.__location
         x: int = int(self.__hsl + self.__original_width / 2)
         y: int = int(self.__hsl - self.__original_height / 2 - 0.015 * self.__hsl)
-        self.__draw.text((x, y), text, anchor="rb", font=self.__font, fill="black")
+        self.__draw.text((x, y), text, anchor="rb", font=self.__font, fill="black")  # pyright: ignore[reportUnknownMemberType]
 
     def __add_camera_model(self) -> None:
         # camera model, on bottom left corner row 1
         text: str = str(self.__exif["EXIF:Make"]) + " " + str(self.__exif["EXIF:Model"])
         x: int = int(self.__hsl - self.__original_width / 2)
         y: int = int(self.__hsl + self.__original_height / 2 + 0.018 * self.__hsl)
-        self.__draw.text((x, y), text, anchor="lt", font=self.__font, fill="black")
+        self.__draw.text((x, y), text, anchor="lt", font=self.__font, fill="black")  # pyright: ignore[reportUnknownMemberType]
 
     def __add_artist(self) -> None:
         # artist, on bottom right corner
@@ -80,7 +80,7 @@ class Davinci:
             text = "@sped0n"
         x = int(self.__hsl + self.__original_width / 2 - 0.007 * self.__hsl)
         y: int = int(self.__hsl + self.__original_height / 2 + 0.016 * self.__hsl)
-        self.__draw.text((x, y), text, anchor="rt", font=self.__font, fill="black")
+        self.__draw.text((x, y), text, anchor="rt", font=self.__font, fill="black")  # pyright: ignore[reportUnknownMemberType]
 
     def process(self) -> PILImage:
         self.__add_capture_time()
