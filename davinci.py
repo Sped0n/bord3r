@@ -53,7 +53,10 @@ class Davinci:
 
     def __add_capture_time(self) -> None:
         # capture time, on top left corner
-        text: str = str(self.__exif["EXIF:CreateDate"])
+        try:
+            text: str = str(self.__exif["EXIF:CreateDate"])
+        except KeyError:
+            text = "N/A"
         x: int = int(self.__hsl - self.__original_width / 2)
         y: int = int(self.__hsl - self.__original_height / 2 - 0.018 * self.__hsl)
         self.__draw.text((x, y), text, anchor="lb", font=self.__font, fill="black")  # pyright: ignore[reportUnknownMemberType]
@@ -67,7 +70,12 @@ class Davinci:
 
     def __add_camera_model(self) -> None:
         # camera model, on bottom left corner row 1
-        text: str = str(self.__exif["EXIF:Make"]) + " " + str(self.__exif["EXIF:Model"])
+        try:
+            text: str = (
+                str(self.__exif["EXIF:Make"]) + " " + str(self.__exif["EXIF:Model"])
+            )
+        except KeyError:
+            text = "N/A"
         x: int = int(self.__hsl - self.__original_width / 2)
         y: int = int(self.__hsl + self.__original_height / 2 + 0.018 * self.__hsl)
         self.__draw.text((x, y), text, anchor="lt", font=self.__font, fill="black")  # pyright: ignore[reportUnknownMemberType]
@@ -77,7 +85,7 @@ class Davinci:
         try:
             text = str(self.__exif["EXIF:Artist"])
         except KeyError:
-            text = "@sped0n"
+            text = "N/A"
         x = int(self.__hsl + self.__original_width / 2 - 0.007 * self.__hsl)
         y: int = int(self.__hsl + self.__original_height / 2 + 0.016 * self.__hsl)
         self.__draw.text((x, y), text, anchor="rt", font=self.__font, fill="black")  # pyright: ignore[reportUnknownMemberType]
