@@ -37,9 +37,10 @@ class saver:
 
     def run(self, fp: str) -> None:
         d = Davinci(fp, self.__location).process()
-        # resize image if width greater than 5000
-        if d.size[0] > 5000:
-            d = d.resize((5000, 5000), resample=Image.Resampling.LANCZOS)
+        # resize image if width greater than target size
+        TARGET: int = 4000
+        if d.size[0] > TARGET:
+            d = d.resize((TARGET, TARGET), resample=Image.Resampling.LANCZOS)
         # save jpeg image
         d.save(
             self.__op_dir + "/bord3r/" + str(os.path.basename(fp)),
